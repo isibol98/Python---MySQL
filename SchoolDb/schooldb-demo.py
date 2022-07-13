@@ -21,6 +21,7 @@ class Student:
             print(f"{s.mycursor.rowcount} students added!")
         except Error as err:
             print("Error: ", err)
+            s.mydb.commit()
         finally:
             s.mydb.close()
             print("Database closed!")
@@ -38,6 +39,28 @@ class Student:
         for student in result:
             print(student)
 
+    def updateStudent(self): #Add in choices?
+        s.mycursor.execute("Update Student Set {newFilter}='{newInfo}' Where {filter}={search}") #... Set name='Ilkkan' Where name='Ali'
+        try:
+            s.mydb.commit()
+            print(f"{s.mycursor.rowcount} student(s) updated!")
+        except Error as err:
+            print("Error: ", err)
+            s.mydb.commit()
+        finally:
+            s.mydb.close()
+            print("Database closed!")
+    def deleteStudent (self): #Add in choices?
+        s.mycursor.execute("Delete From Student Where id=1") #Change this later
+        try:
+            s.mydb.commit()
+            print(f"{s.mycursor.rowcount} student(s) deleted!")
+        except Error as err:
+            print("Error: ", err)
+            s.mydb.commit()
+        finally:
+            s.mydb.close()
+            print("Database closed!")
 
 students = []
 s = Student(students)
@@ -65,7 +88,7 @@ if choice == "1":
             break
 elif choice == "2":
     s.getStudents()
-elif choice == "3":
+elif choice == "3": #Create func for filter?
     filter = input("Search with ...\n1-Student Number\n2-Student Name\n3-Student Surname\n4-Student Gender\n")
     if filter == "1":
         filter = "studentnumber"
