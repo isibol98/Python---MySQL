@@ -42,11 +42,20 @@ class Student:
             Student.mydb.close()
             print("Database closed!")
 
-students = [
-        ("62","Can","Yilmaz",datetime(2000, 5, 17),"M"),
-        ("63","Ali","Aga",datetime(1990, 12, 3),"M"),
-        ("64","Burak", "Sek",datetime(1999, 5, 12), "M"),
-        ("65","Sevgi", "Yilmaz",datetime(1997, 7, 7),"F")
-    ]
+students = []
 
-Student.saveStudents(students)
+while True:
+    studentNumber = input("Student Number: ")
+    name = input("Student Name: ")
+    surname = input("Student Surname: ")
+    birthday = datetime.fromisoformat(input("Student Birthday(YY-MM-DD): "))
+    gender = input("Student Gender(M/F): ")
+
+    students.append((studentNumber,name,surname,birthday,gender))
+
+    progress = input("Do you want to continue?(Y/N)").upper()
+    if progress == "N":
+        print("Saving...")
+        Student.saveStudents(students)
+        break
+
