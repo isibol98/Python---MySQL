@@ -127,19 +127,3 @@ if __name__ == "__main__":
 
     
 
-
-""""
-    def saveStudent(self):
-        sql = "INSERT INTO Student(StudentNumber, Name, Surname, Birthday, Gender) VALUES (%s,%s,%s,%s,%s)"
-        value = (self.studentNumber, self.name,self.surname,self.birthday,self.gender)
-        Student.mycursor.execute(sql,value)
-
-        try:
-            Student.mydb.commit()
-            print(f"{Student.mycursor.rowcount} students added!")
-        except Error as err:
-            print("Error: ", err)
-        finally:
-            Student.mydb.close()
-            print("Database closed!")
-"""
