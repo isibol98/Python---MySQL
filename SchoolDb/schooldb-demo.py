@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from connection import mydb
 from mysql.connector import Error
 from datetime import datetime
@@ -18,14 +19,13 @@ def filter_ (a) -> str: # a -> Search/Update/Delete
         filter_()
     return filter
 
-class Student:
+class StudentRepo:
     mydb = mydb
     mycursor = mydb.cursor()
 
     def __init__ (self, students):
         self.students = students
 
-    @staticmethod
     def saveStudents(students):
         sql = "INSERT INTO Student(StudentNumber, Name, Surname, Birthday, Gender) VALUES (%s,%s,%s,%s,%s)"
         values = students
@@ -77,52 +77,53 @@ class Student:
             s.mydb.close()
             print("Database closed!")
 
-students = []
-s = Student(students)
+if __name__ == "__main__":
+    students = []
+    s = StudentRepo(students)
 
-choice = input("Welcome! What you want to do?\n1-Add New Student\n2-Check Students\n3-Search a Student\n4-Update a Student's Data\n5-Delete a Student\n6-Exit\n:")
-if choice == "1":
-    while True:
-        studentNumber = input("Student Number: ")
-        name = input("Student Name: ")
-        surname = input("Student Surname: ")
-        try:
-            birthday = datetime.fromisoformat(input("Student Birthday(YY-MM-DD): "))
-        except ValueError as err:
-            print("Wrong input. Try again!")
-            birthday = datetime.fromisoformat(input("Student Birthday(YY-MM-DD): "))
-        gender = input("Student Gender(M/F): ")
+    choice = input("Welcome! What you want to do?\n1-Add New Student\n2-Check Students\n3-Search a Student\n4-Update a Student's Data\n5-Delete a Student\n6-Exit\n:")
+    if choice == "1":
+        while True:
+            studentNumber = input("Student Number: ")
+            name = input("Student Name: ")
+            surname = input("Student Surname: ")
+            try:
+                birthday = datetime.fromisoformat(input("Student Birthday(YY-MM-DD): "))
+            except ValueError as err:
+                print("Wrong input. Try again!")
+                birthday = datetime.fromisoformat(input("Student Birthday(YY-MM-DD): "))
+            gender = input("Student Gender(M/F): ")
 
-        students.append((studentNumber,name,surname,birthday,gender))
+            students.append((studentNumber,name,surname,birthday,gender))
 
-        progress = input("Do you want to continue?(Y/N)").upper()
-        if progress == "N":
-            print("Saving...")
-            time.sleep(3)
-            Student.saveStudents(students)
-            break
-elif choice == "2":
-    s.getStudents()
-elif choice == "3":
-    filter = filter_("Search")
-    search = input(f"Enter Student {filter}:\n")
-    s.searchStudents(filter, search)
-elif choice == "4":
-    newFilter = filter_("Update")
-    filter = filter_("Find")
-    newSearch = input(f"Enter the New {newFilter} Value: ")
-    search = input(f"Enter Student {filter}:\n")
-    s.updateStudent(newFilter,newSearch,filter,search)
-elif choice == "5":
-    filter = filter_("Delete")
-    search = input(f"Enter Student {filter}:\n")
-    s.deleteStudent(filter,search)
-elif choice == "6":
-    print("Shutting down...")
-    time.sleep(2)
-    quit()
-else:
-    print("Try again.")
+            progress = input("Do you want to continue?(Y/N)").upper()
+            if progress == "N":
+                print("Saving...")
+                time.sleep(3)
+                s.saveStudents(students)
+                break
+    elif choice == "2":
+        s.getStudents()
+    elif choice == "3":
+        filter = filter_("Search")
+        search = input(f"Enter Student {filter}:\n")
+        s.searchStudents(filter, search)
+    elif choice == "4":
+        newFilter = filter_("Update")
+        filter = filter_("Find")
+        newSearch = input(f"Enter the New {newFilter} Value: ")
+        search = input(f"Enter Student {filter}:\n")
+        s.updateStudent(newFilter,newSearch,filter,search)
+    elif choice == "5":
+        filter = filter_("Delete")
+        search = input(f"Enter Student {filter}:\n")
+        s.deleteStudent(filter,search)
+    elif choice == "6":
+        print("Shutting down...")
+        time.sleep(2)
+        quit()
+    else:
+        print("Try again.")
 
     
 
