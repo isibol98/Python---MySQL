@@ -26,7 +26,7 @@ class StudentRepo:
     def __init__ (self, students):
         self.students = students
 
-    def saveStudents(students):
+    def saveStudents(self,students):
         sql = "INSERT INTO Student(StudentNumber, Name, Surname, Birthday, Gender) VALUES (%s,%s,%s,%s,%s)"
         values = students
         s.mycursor.executemany(sql,values)
