@@ -9,3 +9,10 @@ class Class:
         self.classId = classId
         self.lessonId = lessonId
         self.teacherId = teacherId
+
+    @staticmethod
+    def createClass(obj):
+        list = []
+
+        for i in obj:
+            list.append(Class(i[0],i[1],i[2]))

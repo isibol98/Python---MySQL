@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-from connection import mydb as connection
+from connection import connection
 from student import Student
 from teacher import Teacher
+from class1 import Class
 from mysql.connector import Error
 from datetime import datetime
 import time
 
 class DbManager:
-    def __init__(self,connection):
+    def __init__(self):
         self.connection = connection
         self.cursor = self.connection.cursor()
     
@@ -19,6 +20,14 @@ class DbManager:
         except Error as err:
             print("Error:", err)
         
+    def getClasses(self):
+        self.cursor.execute("Select * From class ")
+        try:
+            obj = self.cursor.fetchall()
+            return Class.createClass(obj)
+        except Error as err:
+            print("Error:", err)
+
     def getStudentByClassId(self,classId):
         self.cursor.execute(f"Select * From Student Where id = {classId}")
         try:
@@ -54,4 +63,4 @@ class DbManager:
 if __name__ == "__main__":
     db = DbManager()
 
-    student = db.getStudentById()
+   # student = db.getStudentById()
