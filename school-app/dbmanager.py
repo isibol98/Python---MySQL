@@ -19,7 +19,7 @@ class DbManager:
             return Student(obj[0],obj[1],obj[2],obj[3],obj[4],obj[5],obj[6])
         except Error as err:
             print("Error:", err)
-        
+        return obj
     def getClasses(self):
         self.cursor.execute("Select * From class ")
         try:
@@ -58,9 +58,11 @@ class DbManager:
 
     def __del__(self):
         self.connection.close()
+        print("Database is saving...")
+        time.sleep(2)
         print("Db has closed!")
 
 if __name__ == "__main__":
     db = DbManager()
-
+    db.getClasses()
    # student = db.getStudentById()

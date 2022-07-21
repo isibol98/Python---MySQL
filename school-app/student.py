@@ -25,3 +25,4 @@ class Student:
         else:
             for i in obj:
                 list.append(Student(i[0],i[1],i[2],i[3],i[4],i[5],i[6]))
+        return list
