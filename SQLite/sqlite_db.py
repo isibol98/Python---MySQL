@@ -7,5 +7,6 @@ cursor = connection.cursor()
 cursor.execute("Select * From albums")
 result = cursor.fetchall()
 for i in result:
-    print(i)
+    print(i[0], "- Name: ",i[1])
+
 connection.close()
